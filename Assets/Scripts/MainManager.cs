@@ -25,6 +25,7 @@ public class MainManager : MonoBehaviour
     {
         if (MenuManager.Instance != null && MenuManager.BestScore != 0)
         {
+            Debug.Log(MenuManager.Instance.newPlayer.playerName);
             BestScoreText.text = "Best score: " + MenuManager.BestScore + " Name: " + MenuManager.BestScoreName;
         }
         const float step = 0.6f;

@@ -7,7 +7,8 @@ using System.IO;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
-    public Text playerNameInput;
+    public Text bestScoreNameandValue;
+    public InputField inputFieldName;
     public Player newPlayer = new Player();
     
     public static int BestScore = 0;
@@ -27,7 +28,7 @@ public class MenuManager : MonoBehaviour
 
     public class Player
     {
-        public string playerName;
+        public string playerName = BestScoreName;
         public int playerScore = 0;
     }
 
@@ -40,10 +41,10 @@ public class MenuManager : MonoBehaviour
 
     public void DataSaveFunkcion()
     {
-        SaveData bestPlayer = new SaveData();
-        bestPlayer.bestPlayerName = BestScoreName;
-        bestPlayer.bestPlayerScore = BestScore;
-        string json = JsonUtility.ToJson(bestPlayer);
+        SaveData nove = new SaveData();
+        nove.bestPlayerName = BestScoreName;
+        nove.bestPlayerScore = BestScore;
+        string json = JsonUtility.ToJson(nove);
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
@@ -57,12 +58,10 @@ public class MenuManager : MonoBehaviour
             BestScoreName = bestPlayer.bestPlayerName;
             BestScore = bestPlayer.bestPlayerScore;
         }
-        
+        bestScoreNameandValue.text = $"Best score has {BestScoreName} : {BestScore}";  
+        inputFieldName.text = BestScoreName;  
+        newPlayer.playerName = BestScoreName;
     }
 
-    public void playerNameChanged(string name)
-    {
-        newPlayer.playerName = playerNameInput.text;
-        Debug.Log(newPlayer.playerName);
-    }
+
 }
